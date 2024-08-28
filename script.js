@@ -1,6 +1,14 @@
 const containerLista = document.getElementById('container-lista');
-var duracaoPasso = 500;
+var duracaoPasso = 50;
 let lista = [];
+let passos = 0;
+let quantElementos = 10
+
+function atualizarPassos(acresimo = 0){
+    passos = passos + acresimo
+    const contadorPassos = document.getElementById('contador-passos')
+    contadorPassos.innerHTML = "Passos: " + passos;
+}
 
 function gerarListaAleatoria(tamanho) {
     lista = Array.from({ length: tamanho }, () => Math.floor(Math.random() * 100) + 1);
@@ -19,6 +27,7 @@ function mostrarLista() {
 
 function trocar(i, j) {
     [lista[i], lista[j]] = [lista[j], lista[i]];
+    atualizarPassos(1)
 }
 
 async function bubbleSort() {
@@ -41,7 +50,17 @@ async function bubbleSort() {
 }
 
 async function bogoSort(){
-
+    const barras = document.querySelectorAll('.barra');
+    for (let i = 0; i < lista.length - 1; i++) {
+        for (let j = 0; j < lista.length - i - 1; j++) {
+            barras[j].classList.add('ativo');
+            barras[j + 1].classList.add('ativo');
+            while(estaOrdenado(lista) === false){
+                embaralhar(lista)
+            }
+            
+        }
+    }
 }
 
 function iniciarOrdenacao() {
@@ -58,8 +77,9 @@ function iniciarOrdenacao() {
 }
 
 function resetarLista() {
-    gerarListaAleatoria(10);
+    gerarListaAleatoria(quantElementos);
+    passos = 0
 }
 
 // Initial array setup
-gerarListaAleatoria(10);
+gerarListaAleatoria(quantElementos);
