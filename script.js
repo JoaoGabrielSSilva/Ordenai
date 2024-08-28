@@ -2,10 +2,10 @@ const containerLista = document.getElementById('container-lista');
 var duracaoPasso = 50;
 let lista = [];
 let passos = 0;
-let quantElementos = 10
+let quantElementos = 4
 
-function atualizarPassos(acresimo = 0){
-    passos = passos + acresimo
+function atualizarPassos(){
+    passos = passos + 1
     const contadorPassos = document.getElementById('contador-passos')
     contadorPassos.innerHTML = "Passos: " + passos;
 }
@@ -27,7 +27,6 @@ function mostrarLista() {
 
 function trocar(i, j) {
     [lista[i], lista[j]] = [lista[j], lista[i]];
-    atualizarPassos(1)
 }
 
 async function bubbleSort() {
@@ -39,6 +38,7 @@ async function bubbleSort() {
 
             if (lista[j] > lista[j + 1]) {
                 trocar(j, j + 1);
+                atualizarPassos()
                 await new Promise(resolve => setTimeout(resolve, duracaoPasso)); // Delay for visualization
                 mostrarLista();
             }
@@ -51,14 +51,35 @@ async function bubbleSort() {
 
 async function bogoSort(){
     const barras = document.querySelectorAll('.barra');
-    for (let i = 0; i < lista.length - 1; i++) {
-        for (let j = 0; j < lista.length - i - 1; j++) {
-            barras[j].classList.add('ativo');
-            barras[j + 1].classList.add('ativo');
-            while(estaOrdenado(lista) === false){
-                embaralhar(lista)
+    
+    function estaOrdenada(){
+        for (let i = 0; i < lista.length - 1; i++){
+            if (lista[i] > lista[i + 1]){
+                return false
             }
-            
+        }
+        return true
+    }
+
+    function embaralhar(){
+        for (let i = lista.length - 1; i > 0; i--){
+            const j = Math.floor(Math.random() * (i + 1));
+            trocar(i, j);
+        }
+    }
+
+    while (!estaOrdenada()){
+        embaralhar();
+        atualizarPassos()
+        await new Promise(resolve => setTimeout(resolve, duracaoPasso)); // Delay for visualization
+        mostrarLista();
+
+        for (let i = 0; i < lista.length; i++) {
+            barras[i].classList.add('ativo');
+        }
+        await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+        for (let i = 0; i < lista.length; i++) {
+            barras[i].classList.remove('ativo');
         }
     }
 }
@@ -68,8 +89,10 @@ function iniciarOrdenacao() {
     switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){
         case 'bubbleSort':
             bubbleSort();
+            break;
         case 'bogoSort':
             bogoSort();
+            break;
         default:
             break;
     }
