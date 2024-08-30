@@ -9,18 +9,26 @@
 </head>
 
 <body>
+    <!-- Título e elemento para exibir a contagem de passos -->
     <h1>Visualizador de Algoritmo de Ordenação</h1>
     <h2 id="contador-passos">Passos: 0</h2>
 
+    <!-- Selecionador do algoritmo a ser utilizado para a ordenação -->
     <label for="algoritmos">Escolha um Algoritmo: </label>
     <select name="algoritmos" id="selec-algoritmos">
         <option value="bubbleSort">bubbleSort</option>
         <option value="bogoSort">bogoSort</option>
     </select>
 
-
+    <!-- Botão que inicia a ordenação -->
     <button onclick="iniciarOrdenacao()">Iniciar a Ordenação</button>
-    <button onclick="resetarLista()">Resetar Lista</button>
+
+    <!-- Botão que retorna as barras para sua posição original  -->
+    <button onclick="reiniciarLista()">Reiniciar Lista</button>
+
+    <!-- Botão que gera uma nova lista  -->
+    <button onclick="gerarLista()">Gerar Lista</button>
+
     <div id="container-lista"></div>
 
     <script src="script.js"></script>
