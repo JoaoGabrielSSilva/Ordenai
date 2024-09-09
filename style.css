@@ -17,3 +17,58 @@
 .ativo {
     background-color: #f44336;
 }
+
+/* Contêiner principal do slider */
+.slider-velocidade-container {
+    position: relative;
+    width: 300px;
+    margin-bottom: 5px; /* Espaço extra para evitar sobreposição */
+}
+
+/* Contêiner dos números */
+.slider-velocidade-numeros {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+    top: -25px; /* Ajuste a altura conforme necessário para posicionar os números acima do slider */
+    pointer-events: none; /* Permite interação com o slider */
+}
+
+/* Estilos básicos para o slider */
+#slider-velocidade {
+    width: 100%;
+}
+
+/* Estilo para os números */
+.slider-velocidade-numeros span {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Contêiner das marcas */
+.slider-velocidade-ticks {
+    position: relative;
+    width: 100%;
+    height: 20px; /* Ajuste a altura para alinhar com a altura do slider */
+}
+
+/* Estilo para as marcas */
+.tick {
+    position: absolute;
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+}
+
+/* Estilo adicional para garantir que as marcas estejam visíveis acima do slider */
+#slider-velocidade {
+    position: relative;
+    z-index: 1; /* Garante que o slider fique acima das marcas */
+}
+
+
+
+
+
+  

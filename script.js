@@ -1,7 +1,9 @@
 //definição das variáveis
 const containerLista = document.getElementById('container-lista'); //recebendo o elemento que exibe as barras da lista
 const contadorPassos = document.getElementById('contador-passos')  //recebendo o elemento que exibe a contagem de passos
-var duracaoPasso = 50; //duração do passo (1000 = 1 segundo)
+const sliderVelocidade = document.getElementById('slider-velocidade');
+const valorVelocidade = document.getElementById('valor-velocidade');
+let duracaoPasso = 1000; //duração do passo (1000 = 1 segundo)
 let lista = []; // inicializando a lista
 let listaAtual = []; // utilizado para armazenar a lista atual para reiniciar
 let passos = 0; // inicializando o contador de passos
@@ -12,6 +14,20 @@ function atualizarPassos(){
     passos = passos + 1; // adiciona um passo
     contadorPassos.innerHTML = "Passos: " + passos; // atualiza o contador de passos
 }
+
+function atualizarVelocidade(velocidade){
+    duracaoPasso = velocidade * 1000;
+    console.log(duracaoPasso)    
+}
+
+sliderVelocidade.addEventListener('input', function() {
+    // Atualiza o valor exibido com a velocidade selecionada
+    valorVelocidade.textContent = sliderVelocidade.value;
+  
+    // Aqui você pode chamar a função que depende da velocidade selecionada
+    // Exemplo:
+    atualizarVelocidade(sliderVelocidade.value);
+  });
 
 //função que gera uma lista aleatória
 function gerarListaAleatoria(tamanho) {
@@ -128,3 +144,5 @@ function reiniciarLista(){
 
 // Código executado ao iniciar o programa, gerando uma lista inicial com valores aleatórios
 gerarListaAleatoria(quantElementos);
+
+
