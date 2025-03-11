@@ -3,6 +3,12 @@ const containerLista = document.getElementById('container-lista'); //recebendo o
 const contadorPassos = document.getElementById('contador-passos')  //recebendo o elemento que exibe a contagem de passos
 const sliderVelocidade = document.getElementById('slider-velocidade');
 const valorVelocidade = document.getElementById('valor-velocidade');
+
+const sliderQuantidade = document.getElementById('slider-quantidade');
+const valorQuantidade = document.getElementById('valor-quantidade');
+
+
+let estaOrdenando = false;
 let duracaoPasso = 1000; //duração do passo (1000 = 1 segundo)
 let lista = []; // inicializando a lista
 let listaAtual = []; // utilizado para armazenar a lista atual para reiniciar
@@ -15,8 +21,24 @@ function atualizarPassos(){
     contadorPassos.innerHTML = "Passos: " + passos; // atualiza o contador de passos
 }
 
+function atualizarQuantidade(quantidade){
+    quantElementos = quantidade;
+    gerarListaAleatoria(quantElementos);
+    estaOrdenando = false;
+    console.log(quantElementos)
+}
+
+sliderQuantidade.addEventListener('input', function() {
+    // Atualiza o valor exibido com a quantidade selecionada
+    valorQuantidade.textContent = sliderQuantidade.value;
+
+    // Aqui você pode chamar a função que depende da quantidade selecionada
+    // Exemplo:
+    atualizarQuantidade(sliderQuantidade.value);
+  });
+
 function atualizarVelocidade(velocidade){
-    duracaoPasso = velocidade * 1000;
+    duracaoPasso = 1000 / velocidade;
     console.log(duracaoPasso)    
 }
 
@@ -56,30 +78,38 @@ function trocar(i, j) {
 //implementação do bubble sort
 async function bubbleSort() {
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
-    for (let i = 0; i < lista.length - 1; i++) {
-        for (let j = 0; j < lista.length - i - 1; j++) { // verifica-se a lista duplamente para verificar a ordenação
-            barras[j].classList.add('ativo'); // troca a cor da barra atual e a posterior para demonstrar que estão sendo comparadas
-            barras[j + 1].classList.add('ativo');
+    estaOrdenando = true;
 
-            if (lista[j] > lista[j + 1]) { //caso o elemento atual seja maior que o próximo
-                trocar(j, j + 1); // troca-se de lugar o elemento atual pelo próximo
-                atualizarPassos();// incrementa-se o contador de passos
-                await new Promise(resolve => setTimeout(resolve, duracaoPasso)); // atrasa a visualização na velocidade escolhida
-                mostrarLista(); // exibe a lista após realizar a troca
+    while(estaOrdenando){
+        for (let i = 0; i < lista.length - 1; i++) {
+            for (let j = 0; j < lista.length - i - 1; j++) { // verifica-se a lista duplamente para verificar a ordenação
+                barras[j].classList.add('ativo'); // troca a cor da barra atual e a posterior para demonstrar que estão sendo comparadas
+                barras[j + 1].classList.add('ativo');
+    
+                if (lista[j] > lista[j + 1]) { //caso o elemento atual seja maior que o próximo
+                    trocar(j, j + 1); // troca-se de lugar o elemento atual pelo próximo
+                    atualizarPassos();// incrementa-se o contador de passos
+                    await new Promise(resolve => setTimeout(resolve, duracaoPasso)); // atrasa a visualização na velocidade escolhida
+                    estaOrdenando = false;
+                    mostrarLista(); // exibe a lista após realizar a troca
+                }
+    
+                //remove a cor da barra a qual foi efetuada a comparação
+                barras[j].classList.remove('ativo');
+                barras[j + 1].classList.remove('ativo');
             }
-
-            //remove a cor da barra a qual foi efetuada a comparação
-            barras[j].classList.remove('ativo');
-            barras[j + 1].classList.remove('ativo');
         }
     }
+    
 }
 
 //implementação do bogo sort
 async function bogoSort(){
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
+    estaOrdenando = true;
     
-    //função que verifica se a lista está ordenada
+    while(estaOrdenando){
+        //função que verifica se a lista está ordenada
     function estaOrdenada(){
         for (let i = 0; i < lista.length - 1; i++){ // para cada elemento da lista
             if (lista[i] > lista[i + 1]){ //se o elemento atual for maior que o próximo elemento
@@ -101,6 +131,7 @@ async function bogoSort(){
         embaralhar();// embaralha os elementos novamente
         atualizarPassos()// incrementa o contador de passos
         await new Promise(resolve => setTimeout(resolve, duracaoPasso)); // atraso para visualização
+        estaOrdenando = false;
         mostrarLista();// exibe a lista após embaralhar
 
         for (let i = 0; i < lista.length; i++) {// adiciona a cor para os elementos que estão selecionados atualmente
@@ -111,10 +142,13 @@ async function bogoSort(){
     for (let i = 0; i < lista.length; i++) {// retorna a cor original das barras
         barras[i].classList.remove('ativo');
     }
+    }
+    
 }
 
 //função que inicia a ordenação ao clicar no botão
 function iniciarOrdenacao() {
+    estaOrdenando = false;
     var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
     switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){// verifica qual foi o algoritmo escolhido e realiza a ordenação de acordo com o tipo escolhido
         case 'bubbleSort':
