@@ -1,10 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+h1{
+    flex-basis: 50%;
+}
+
+.btn{
+    width: 10rem;
+    height: 3rem;
+    margin: 1rem;
+}
+
+#selec-algoritmo{
+    
+    height: 3rem;
+}
+
+#contador-passos{
+    flex-basis: 50%;
+    flex-grow: 1;
+    
+}
+
 #container-lista {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
     height: 300px;
     border: 1px solid #000;
+    border-radius: 15px;
     margin-top: 20px;
 }
 
@@ -18,39 +51,43 @@
     background-color: #f44336;
 }
 
-/* Contêiner principal do slider */
-.slider-velocidade-container {
-    position: relative;
-    width: 300px;
-    margin-bottom: 5px; /* Espaço extra para evitar sobreposição */
+.sliders{
+    height: 300px;
+    width: 5rem;
+    margin: 1rem;
+    display: flex;
+    align-items: center;
 }
 
-/* Contêiner dos números */
-.slider-velocidade-numeros {
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
+/* Contêiner principal do slider */
+.slider-container {
+    position: relative;
+    height: 300px;
     width: 100%;
-    top: -25px; /* Ajuste a altura conforme necessário para posicionar os números acima do slider */
-    pointer-events: none; /* Permite interação com o slider */
+    margin: 1rem; /* Espaço extra para evitar sobreposição */
 }
 
 /* Estilos básicos para o slider */
-#slider-velocidade {
-    width: 100%;
+#slider-velocidade, #slider-quantidade {
+    position: relative;
+    z-index: 1; /* Garante que o slider fique acima das marcas */
+    transform: rotate(-90deg) translate(-150px, -150px);
+    transform-origin: center;
+    width: 300px;
+    height: 1rem;
 }
 
-/* Estilo para os números */
-.slider-velocidade-numeros span {
-    font-size: 14px;
-    font-weight: bold;
-}
 
 /* Contêiner das marcas */
-.slider-velocidade-ticks {
-    position: relative;
-    width: 100%;
-    height: 20px; /* Ajuste a altura para alinhar com a altura do slider */
+.slider-ticks {
+    position: absolute;
+    height: 100%;
+    width: 20px; /* Ajuste a altura para alinhar com a altura do slider */
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
 }
 
 /* Estilo para as marcas */
@@ -58,14 +95,9 @@
     position: absolute;
     font-size: 12px;
     color: #333;
-    text-align: center;
+    right: 0;
 }
 
-/* Estilo adicional para garantir que as marcas estejam visíveis acima do slider */
-#slider-velocidade {
-    position: relative;
-    z-index: 1; /* Garante que o slider fique acima das marcas */
-}
 
 
 

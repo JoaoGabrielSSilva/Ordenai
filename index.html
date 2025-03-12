@@ -4,59 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizador de Algoritmos de Ordenação</title>
+    <title>Sorting Visualizer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <!-- Botão que inicia a ordenação -->
-    <button onclick="iniciarOrdenacao()">Iniciar a Ordenação</button>
+    <button class="btn" onclick="iniciarOrdenacao()">Iniciar a Ordenação</button>
 
     <!-- Botão que retorna as barras para sua posição original  -->
-    <button onclick="reiniciarLista()">Reiniciar Lista</button>
+    <button class="btn" onclick="reiniciarLista()">Reiniciar Lista</button>
 
     <!-- Botão que gera uma nova lista  -->
-    <button onclick="gerarLista()">Gerar Lista</button>
+    <button class="btn" onclick="gerarLista()">Gerar Lista</button>
     
     <h1>Sorting Visualizer</h1>
-    <h2 id="contador-passos">Passos: 0</h2>
 
     <!-- Selecionador do algoritmo a ser utilizado para a ordenação -->
-    <label for="algoritmos">Escolha um Algoritmo: </label>
     <select name="algoritmos" id="selec-algoritmos">
+        <option value="" disabled selected>Selecione um Algoritmo</option>
         <option value="bubbleSort">bubbleSort</option>
         <option value="bogoSort">bogoSort</option>
     </select>
 
-    <div class="sliders">
-        <div class="slider-velocidade-container">
-            <input type="range" id="slider-velocidade" min="0.5" max="2" step="0.5" value="1">
-            <div class="slider-velocidade-ticks">
-                <div class="tick" style="bottom: 0%;">0.5</div>
-                <div class="tick" style="bottom: 50%;">1</div>
-                <div class="tick" style="bottom: 100%;">2</div>
-            </div>
-            <label for="slider-velocidade">Velocidade: <span id="valor-velocidade">1</span>x</label>
-        </div>
-    </div>
+    <h2 id="contador-passos">Passos: 0</h2>
 
     <div class="sliders">
-        <div class="slider-quantidade-container">
-            <input type="range" id="slider-quantidade" min="10" max="50" step="10" value="1">
-            <div class="slider-quantidade-ticks">
+        <div class="slider-container">
+            <input type="range" id="slider-quantidade" min="5" max="50" step="5" value="1">
+            <div class="slider-ticks">
                 <div class="tick" style="bottom: 0%;">10</div>
                 <div class="tick" style="bottom: 50%;">25</div>
                 <div class="tick" style="bottom: 100%;">50</div>
             </div>
-            <label for="slider-quantidade">Quantidade: <span id="valor-quantidade">10</span></label>
+           
         </div>
     </div>
-    
 
     <div id="container-lista"></div>
 
-    <script src="script.js"></script>
+    <div class="sliders">
+        <div class="slider-container">
+            <input type="range" id="slider-velocidade" min="0.5" max="2" step="0.5" value="1">
+            <div class="slider-ticks">
+                <div class="tick" style="bottom: 0%;">0.5</div>
+                <div class="tick" style="bottom: 50%;">1</div>
+                <div class="tick" style="bottom: 100%;">2</div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <script type="module">
+        import {iniciarOrdenacao, gerarLista, reiniciarLista} from './js/script.js';
+
+        window.iniciarOrdenacao = iniciarOrdenacao;
+        window.gerarLista = gerarLista;
+        window.reiniciarLista = reiniciarLista;
+    </script>
 </body>
 
 </html>
