@@ -1,1 +1,1 @@
-[https://joaogabrielssilva.github.io/SortingAlgorithmVisualizerElectronJS/]
+[https://joaogabrielssilva.github.io/SortingVisualizer/]
