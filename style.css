@@ -7,100 +7,111 @@
 body{
     display: flex;
     flex-wrap: wrap;
+    width: 70rem;
 }
 
 h1{
-    flex-basis: 50%;
+    text-align: center;
+    margin: auto 1rem;
 }
 
-.btn{
-    width: 10rem;
+.botoesControle{
+    flex-basis: 100%;
+
+    .btn{
+        width: 10rem;
+        height: 3rem;
+        margin: 1rem;
+    }
+}
+
+#selec-algoritmos{
     height: 3rem;
-    margin: 1rem;
+    width: 8rem;
+    margin: auto 1rem;
 }
 
-#selec-algoritmo{
-    
-    height: 3rem;
-}
 
-#contador-passos{
-    flex-basis: 50%;
-    flex-grow: 1;
-    
-}
-
-#container-lista {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    width: 80%;
-    height: 300px;
-    border: 1px solid #000;
-    border-radius: 15px;
-    margin-top: 20px;
-}
-
-.barra {
-    width: 20px;
-    background-color: #4caf50;
-    transition: height 0.5s ease;
-}
-
-.ativo {
-    background-color: #f44336;
-}
-
-.sliders{
-    height: 300px;
-    width: 5rem;
-    margin: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-/* Contêiner principal do slider */
-.slider-container {
-    position: relative;
-    height: 300px;
+#visualizador{
     width: 100%;
-    margin: 1rem; /* Espaço extra para evitar sobreposição */
-}
-
-/* Estilos básicos para o slider */
-#slider-velocidade, #slider-quantidade {
-    position: relative;
-    z-index: 1; /* Garante que o slider fique acima das marcas */
-    transform: rotate(-90deg) translate(-150px, -150px);
-    transform-origin: center;
-    width: 300px;
-    height: 1rem;
-}
-
-
-/* Contêiner das marcas */
-.slider-ticks {
-    position: absolute;
-    height: 100%;
-    width: 20px; /* Ajuste a altura para alinhar com a altura do slider */
-    right: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 0;
+    justify-content: space-evenly;
+
+    #contador-passos{
+        position: absolute;
+        top: 50%;
+        right: 40%;
+        height: 3rem;
+    }
+
+    #container-lista {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        height: 300px;
+        width: 70%;
+        border: 1px solid #000;
+        border-radius: 15px;
+        margin-top: 20px;
+
+        .barra {
+            width: 20px;
+            background-color: #4caf50;
+            transition: height 0.5s ease;
+        }
+
+        .ativo {
+            background-color: #f44336;
+        }
+    }
+
+    .sliders{
+        height: 300px;
+        width: 5rem;
+        margin: 1rem;
+        display: flex;
+        align-items: center;
+
+        /* Contêiner principal do slider */
+        .slider-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin: 1rem; /* Espaço extra para evitar sobreposição */
+
+            /* Estilos básicos para o slider */
+            #slider-velocidade, #slider-quantidade {
+                position: relative;
+                z-index: 1; /* Garante que o slider fique acima das marcas */
+                transform: rotate(-90deg) translate(-150px, -150px);
+                transform-origin: center;
+                width: 300px;
+                height: 1rem;
+            }
+
+            /* Contêiner das marcas */
+            .slider-ticks {
+                position: absolute;
+                height: 100%;
+                width: 20px; /* Ajuste a altura para alinhar com a altura do slider */
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 10px 0;
+
+                /* Estilo para as marcas */
+                .tick {
+                    position: absolute;
+                    font-size: 12px;
+                    color: #333;
+                    right: 0;
+                }
+            }
+        }
+
+
+    }
 }
 
-/* Estilo para as marcas */
-.tick {
-    position: absolute;
-    font-size: 12px;
-    color: #333;
-    right: 0;
-}
-
-
-
-
-
-
-  
