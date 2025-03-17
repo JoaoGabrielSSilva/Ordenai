@@ -32,7 +32,7 @@ function atualizarQuantidade(quantidade){
 
     passos = 0;
     contadorPassos.innerHTML = "Passos: " + passos; // atualiza o contador de passos
-    estaOrdenando = false;
+    estado.estaOrdenando = false;
     console.log(quantElementos)
 }
 
@@ -90,10 +90,22 @@ export function iniciarOrdenacao() {
     estado.estaOrdenando = true;
     var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
     switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){// verifica qual foi o algoritmo escolhido e realiza a ordenação de acordo com o tipo escolhido
-        case 'bubbleSort':
+        case 'Bubble Sort':
             bubbleSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
             break;
-        case 'bogoSort':
+        case 'Quick Sort':
+            quickSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Merge Sort':
+            mergeSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'selection Sort':
+            selectionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Insertion Sort':
+            insertionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Bogo Sort':
             bogoSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
             break;
         default:
