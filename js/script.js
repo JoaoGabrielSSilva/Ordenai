@@ -1,14 +1,31 @@
 import { bubbleSort } from "./algoritmos/bubbleSort.js";
 import { bogoSort } from "./algoritmos/bogoSort.js";
+import { insertionSort } from "./algoritmos/insertionSort.js";
+import { mergeSort } from "./algoritmos/mergeSort.js";
+import { quickSort } from "./algoritmos/quickSort.js";
+import { selectionSort } from "./algoritmos/selectionSort.js";
 
 //definição das variáveis
 const containerLista = document.getElementById('container-lista'); //recebendo o elemento que exibe as barras da lista
 const contadorPassos = document.getElementById('contador-passos')  //recebendo o elemento que exibe a contagem de passos
-const sliderVelocidade = document.getElementById('slider-velocidade');
-const valorVelocidade = document.getElementById('valor-velocidade');
 
-const sliderQuantidade = document.getElementById('slider-quantidade');
-const valorQuantidade = document.getElementById('valor-quantidade');
+const botoesQuantidade = document.querySelectorAll('.modificador-quantidade-box .btn');
+
+botoesQuantidade.forEach(botao => {
+    botao.addEventListener('click', function() {
+      const quantidade = parseInt(this.textContent);
+      atualizarQuantidade(quantidade);
+    });
+});
+
+const botoesVelocidade = document.querySelectorAll('.modificador-velocidade-box .btn');
+
+botoesVelocidade.forEach(botao => {
+    botao.addEventListener('click', function() {
+      const velocidade = parseInt(this.textContent.replace('x', ''));
+      atualizarVelocidade(velocidade);
+    });
+});
 
 const estado = {
     estaOrdenando: false
@@ -36,24 +53,11 @@ function atualizarQuantidade(quantidade){
     console.log(quantElementos)
 }
 
-sliderQuantidade.addEventListener('input', function() {
-
-    // Aqui você pode chamar a função que depende da quantidade selecionada
-    // Exemplo
-    atualizarQuantidade(sliderQuantidade.value);
-  });
-
 function atualizarVelocidade(velocidade){
     duracaoPasso = 1000 / velocidade;
     console.log(duracaoPasso)    
 }
 
-sliderVelocidade.addEventListener('input', function() {
-  
-    // Aqui você pode chamar a função que depende da velocidade selecionada
-    // Exemplo:
-    atualizarVelocidade(sliderVelocidade.value);
-  });
 
 //função que gera uma lista aleatória
 function gerarListaAleatoria(tamanho) {

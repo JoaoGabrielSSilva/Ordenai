@@ -12,13 +12,13 @@
 
     <div class="botoesControle">
         <!-- Botão que inicia a ordenação -->
-        <button class="btn" onclick="iniciarOrdenacao()">Iniciar a Ordenação</button>
-
-        <!-- Botão que retorna as barras para sua posição original  -->
-        <button class="btn" onclick="reiniciarLista()">Reiniciar Lista</button>
+        <button class="btn" onclick="iniciarOrdenacao()">Iniciar</button>
 
         <!-- Botão que gera uma nova lista  -->
         <button class="btn" onclick="gerarLista()">Gerar Lista</button>
+
+        <!-- Botão que retorna as barras para sua posição original  -->
+        <button class="btn" onclick="reiniciarLista()">Reiniciar Lista</button>
     </div>
     
     
@@ -36,38 +36,29 @@
     <h1>Sorting Visualizer</h1>
 
     <div id="visualizador">
-        <div class="slider-box">
-            <label for="slider-quantidade">Quantidade</label>
-            <input type="range" id="slider-quantidade" min="5" max="50" step="5" value="5" list="slider-track-quantidade">
-            <datalist id="slider-track-quantidade">
-                <option value="5"></option>
-                <option value="15"></option>
-                <option value="25"></option>
-                <option value="35"></option>
-                <option value="45"></option>
-                <option value="50"></option>
-            </datalist>
-            
-          </div>
 
-          <div class="container-contador">
+        <div class="modificador-quantidade-box">
+            <p>Quantidade</p>
+            <button class="btn">5</button>
+            <button class="btn">10</button>
+            <button class="btn">20</button>
+            <button class="btn">30</button>
+            <button class="btn">50</button>
+        </div>
+
+        <div class="container-contador">
             <h2 id="contador-passos">Passos: 0</h2>
-        <div id="container-lista"></div>
-          </div>
+            <div id="container-lista"></div>
+        </div>
         
-
-        <div class="slider-box">
-            <label for="slider-velocidade">Velocidade</label>
-            <input type="range" id="slider-velocidade" min="0.5" max="2" step="0.5" value="1" list="slider-track-velocidade">
-            <datalist id="slider-track-velocidade">
-                <option value="0.5" label="0.5x"></option>
-                <option value="1" label="1x"></option>
-                <option value="1.5" label="2x"></option>
-            </datalist>
+        <div class="modificador-velocidade-box">
+            <p>Velocidade</p>
+            <button class="btn">0.5x</button>
+            <button class="btn">1.0x</button>
+            <button class="btn">2.0x</button>
+        </div>
             
-          </div>
     </div>
-</div>
 
     <script type="module">
         import {iniciarOrdenacao, gerarLista, reiniciarLista} from './js/script.js';
