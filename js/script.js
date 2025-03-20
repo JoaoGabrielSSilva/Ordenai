@@ -103,7 +103,7 @@ export function iniciarOrdenacao() {
         case 'Merge Sort':
             mergeSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
             break;
-        case 'selection Sort':
+        case 'Selection Sort':
             selectionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
             break;
         case 'Insertion Sort':
