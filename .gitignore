@@ -1,0 +1,22 @@
+# Ignorar arquivos e pastas gerados pelo Node.js
+node_modules/          # Ignora a pasta de dependências locais
+npm-debug.log          # Ignora logs de depuração do npm
+yarn-error.log         # Ignora logs de erro do Yarn
+package-lock.json      # Ignora o arquivo de bloqueio de versão do npm (opcional)
+yarn.lock              # Ignora o arquivo de bloqueio de versão do Yarn (opcional)
+
+# Ignorar arquivos gerados pelo Electron
+dist/                  # Ignora a pasta de distribuição (se você estiver empacotando o app)
+out/                   # Ignora a pasta de saída (usada por algumas ferramentas de build)
+electron-packager/     # Ignora arquivos gerados pelo electron-packager
+electron-builder/      # Ignora arquivos gerados pelo electron-builder
+
+# Ignorar arquivos de ambiente
+.env                   # Ignora arquivos de variáveis de ambiente
+.env.local             # Ignora arquivos locais de variáveis de ambiente
+.env.development       # Ignora arquivos de ambiente específicos do desenvolvimento
+.env.production        # Ignora arquivos de ambiente específicos da produção
+
+# Ignorar arquivos temporários
+*.tmp                  # Ignora arquivos temporários com extensão .tmp
+*.log                  # Ignora arquivos de log
