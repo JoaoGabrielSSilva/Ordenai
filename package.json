@@ -1,0 +1,24 @@
+{
+  "name": "sortingvisualizer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoGabrielSSilva/SortingVisualizer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoaoGabrielSSilva/SortingVisualizer/issues"
+  },
+  "homepage": "https://github.com/JoaoGabrielSSilva/SortingVisualizer#readme",
+  "description": "",
+  "devDependencies": {
+    "electron": "^35.1.0"
+  }
+}

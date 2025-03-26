@@ -32,11 +32,13 @@ body{
 }
 
 h1{
+    font-size: 3rem;
     font-family: var(--primary-font);
     font-weight: 700;
     font-style: normal;
     text-align: center;
     margin: auto;
+    margin-top: 0;
     color: var(--dark-color);
 }
 
@@ -57,6 +59,15 @@ h1{
         font-weight: 700;
         font-size: 1rem;
         color: var(--dark-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 2px 2px 15px 0px rgba(3, 11, 91, 0.8);
+    }
+
+    .btn:hover {
+        background-color: var(--dark-color); /* Altera a cor de fundo */
+        color: var(--light-color); /* Altera a cor do texto */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra suave */
     }
 }
 
@@ -71,6 +82,15 @@ h1{
     font-weight: 700;
     font-size: 1rem;
     color: var(--dark-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 15px 0px rgba(3, 11, 91, 0.8);
+}
+
+#selec-algoritmos:hover {
+    background-color: var(--dark-color); /* Altera a cor de fundo */
+    color: var(--light-color); /* Altera a cor do texto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra suave */
 }
 
 
@@ -104,6 +124,7 @@ h1{
             border-radius: 15px 15px 0 0;
             padding: 1rem 1rem 0;
             margin-top: 2rem;
+            box-shadow: 2px 2px 15px 0px rgba(3, 11, 91, 0.8);
     
             .barra {
                 width: 20px;
@@ -136,6 +157,7 @@ h1{
         font-weight: 700;
         font-size: 1rem;
         color: var(--dark-color);
+        box-shadow: 2px 2px 15px 0px rgba(3, 11, 91, 0.8);
 
         p{
             text-align: center;
@@ -149,6 +171,15 @@ h1{
             margin-bottom: 1rem;
             width: 8rem;
             height: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 15px 0px rgba(3, 11, 91, 0.8);
+        }
+
+        .btn:hover {
+            background-color: var(--dark-color); /* Altera a cor de fundo */
+            color: var(--light-color); /* Altera a cor do texto */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra suave */
         }
 
     }
