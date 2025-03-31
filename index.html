@@ -53,6 +53,7 @@
         
         <div class="modificador-velocidade-box">
             <p>Velocidade</p>
+            <button class="btn" id="botao-pausa" onclick="alternarPausa()">❚❚</button>
             <button class="btn">0.5x</button>
             <button class="btn">1.0x</button>
             <button class="btn">2.0x</button>
@@ -61,11 +62,12 @@
     </div>
 
     <script type="module">
-        import {iniciarOrdenacao, gerarLista, reiniciarLista} from './app.js';
+        import {iniciarOrdenacao, gerarLista, reiniciarLista, alternarPausa} from './app.js';
 
         window.iniciarOrdenacao = iniciarOrdenacao;
         window.gerarLista = gerarLista;
         window.reiniciarLista = reiniciarLista;
+        window.alternarPausa = alternarPausa; 
     </script>
 </body>
 

@@ -4,10 +4,21 @@ export async function selectionSort(lista, estado, duracaoPasso, trocar, atualiz
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     for (let i = 0; i < lista.length - 1 && estado.estaOrdenando; i++) {
+
+        while (estado.estaPausado) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            if (!estado.estaOrdenando) return;
+        }
+
         let minIndex = i; // define-se o índice do menor valor como o atual
         barras[i].classList.add('chave'); // troca a cor da barra atual para demonstrar que está sendo comparada
 
         for (let j = i + 1; j < lista.length && estado.estaOrdenando; j++) { // verifica-se a lista a partir do elemento atual
+
+            while (estado.estaPausado) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                if (!estado.estaOrdenando) return;
+            }
 
             const barrasAtuais = document.querySelectorAll('.barra');
             barrasAtuais[i].classList.add('chave');

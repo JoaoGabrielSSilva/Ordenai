@@ -21,6 +21,12 @@ export async function bogoSort(lista, estado, duracaoPasso, trocar, atualizarPas
     }
 
     while (!estaOrdenada() && estado.estaOrdenando){// enquanto a lista não está ordenada
+
+        while (estado.estaPausado) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            if (!estado.estaOrdenando) return;
+        }
+
         embaralhar();// embaralha os elementos novamente
         mostrarLista();// exibe a lista após embaralhar
 

@@ -6,6 +6,12 @@ export async function bubbleSort(lista, estado, duracaoPasso, trocar, atualizarP
     for (let i = 0; i < lista.length - 1 && estado.estaOrdenando; i++) {
         for (let j = 0; j < lista.length - i - 1 && estado.estaOrdenando; j++) { // verifica-se a lista duplamente para verificar a ordenação
             
+            if (!estado.estaOrdenando) return; // se o botão de parar for clicado, para a ordenação
+
+            while(estado.estaPausado){
+                await new Promise(resolve => setTimeout(resolve, 100)); // pausa a ordenação
+                if (!estado.estaOrdenando) return;
+            }
             barras[j].classList.add('ativo'); // troca a cor da barra atual e a posterior para demonstrar que estão sendo comparadas
             barras[j + 1].classList.add('ativo');
 

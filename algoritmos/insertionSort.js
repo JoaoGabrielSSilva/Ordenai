@@ -4,11 +4,19 @@ export async function insertionSort(lista, estado, duracaoPasso, trocar, atualiz
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     for (let i = 1; i  < lista.length && estado.estaOrdenando; i++) { // percorre-se a lista
+
+        while (estado.estaPausado) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            if (!estado.estaOrdenando) return;
+        }
+
         let chave = lista[i]; // define-se a chave como o elemento atual
         let j = i - 1; // define-se j como o elemento anterior a chave
 
         barras.forEach(barra => barra.classList.remove('ativo')); // remove-se a classe ativo de todas as barras anteriores
         barras[i].classList.add('chave'); // adiciona-se a classe ativo à barra atual
+
+        
 
         while (j >= 0 && lista[j] > chave && estado.estaOrdenando) { // enquanto j for maior ou igual a 0 e o elemento anterior a chave for maior que a chave
             barras[j].classList.add('ativo'); // adiciona-se a classe ativo à barra atual

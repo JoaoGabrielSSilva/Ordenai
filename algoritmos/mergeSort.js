@@ -23,6 +23,12 @@ export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPa
         }
 
         while(i < num1 && j < num2 && estado.estaOrdenando) {
+
+            while (estado.estaPausado) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                if (!estado.estaOrdenando) return;
+            }
+
             const barrasAtuais = document.querySelectorAll('.barra');
             barrasAtuais.forEach(barra => barra.classList.remove('ativo'));
 
@@ -59,6 +65,12 @@ export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPa
         }
 
         while (i < num1 && estado.estaOrdenando) {
+
+            while (estado.estaPausado) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                if (!estado.estaOrdenando) return;
+            }
+
             barras[k].classList.add('ativo');
             barras[k].classList.remove('chave');
 
@@ -80,6 +92,12 @@ export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPa
         }
 
         while (j < num2 && estado.estaOrdenando) {
+
+            while (estado.estaPausado) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                if (!estado.estaOrdenando) return;
+            }
+
             barras[k].classList.add('ativo');
             barras[k].classList.remove('chave');
 
@@ -101,6 +119,9 @@ export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPa
     }
 
     async function mergeSortRecursivo(inicio, fim) {
+
+        
+
         if(inicio < fim && estado.estaOrdenando) {
             const meio = Math.floor((inicio + fim) / 2);
             await mergeSortRecursivo(inicio, meio);

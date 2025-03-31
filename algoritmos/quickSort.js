@@ -10,6 +10,12 @@ export async function quickSort(lista, estado, duracaoPasso, trocar, atualizarPa
         let i = baixa - 1;
 
         for(let j = baixa; j <= alta && estado.estaOrdenando; j++) {
+
+            while (estado.estaPausado) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                if (!estado.estaOrdenando) return;
+            }
+
             barras[j].classList.add('ativo'); // adiciona a classe 'ativo' à barra atual
             if(lista[j] < pivot) {
                 i++;

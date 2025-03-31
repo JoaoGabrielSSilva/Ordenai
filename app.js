@@ -22,16 +22,19 @@ const botoesVelocidade = document.querySelectorAll('.modificador-velocidade-box 
 
 botoesVelocidade.forEach(botao => {
     botao.addEventListener('click', function() {
-      const velocidade = parseInt(this.textContent.replace('x', ''));
-      atualizarVelocidade(velocidade);
+      if (this.id !== 'botao-pausa'){
+        const velocidade = parseFloat(this.textContent.replace('x', ''));
+        atualizarVelocidade(velocidade);
+      }
     });
 });
 
 const estado = {
-    estaOrdenando: false
+    estaOrdenando: false,
+    estaPausado: false
 }
 
-let duracaoPasso = 500; //duração do passo (500 = 0.5 segundo)
+let duracaoPasso = 250; //duração do passo (1000 = 1 segundo)
 let lista = []; // inicializando a lista
 let listaAtual = []; // utilizado para armazenar a lista atual para reiniciar
 let passos = 0; // inicializando o contador de passos
@@ -54,7 +57,7 @@ function atualizarQuantidade(quantidade){
 }
 
 function atualizarVelocidade(velocidade){
-    duracaoPasso = 1000 / velocidade;
+    duracaoPasso = 500 / velocidade;
     console.log(duracaoPasso)    
 }
 
@@ -74,19 +77,37 @@ function mostrarLista() {
     const barrasAtivas = document.querySelectorAll('.barra.ativo');
     barrasAtivas.forEach(barra => barra.classList.remove('ativo'));
 
-    containerLista.innerHTML = ''; // define o elemento como um texto vazio
-    //para cada valor da lista
-    lista.forEach((value) => {
-        const barra = document.createElement('div'); // cria-se uma div para ser utilizada como uma barra
-        barra.className = 'barra'; // adiciona a classe "barra" para estilização no css
-        barra.style.height = `${value * 3}px`; // Escala o valor para conter a altura do elemento
-        containerLista.appendChild(barra); // adiciona a barra ao container da lista
-    });
+    if (containerLista.children.length !== lista.length) {
+        containerLista.innerHTML = '';
+        lista.forEach((value) => {
+            const barra = document.createElement('div');
+            barra.className = 'barra';
+            barra.style.height = `${value * 3}px`;
+            containerLista.appendChild(barra);
+        });
+    } else {
+        const barras = containerLista.children;
+        lista.forEach((value, index) => {
+            barras[index].style.height = `${value * 3}px`;
+        });
+    }
 }
 
 //função para realizar trocas em diferentes algoritmos de ordenação
 function trocar(i, j) {
-    [lista[i], lista[j]] = [lista[j], lista[i]];
+    const barras = containerLista.children;
+    const tempEsquerda = barras[i].offsetLeft;
+    const tempDireita = barras[j].offsetLeft;
+
+    barras[i].style.transform = `translateX(${tempDireita - tempEsquerda}px)`;
+    barras[j].style.transform = `translateX(${tempEsquerda - tempDireita}px)`;
+    
+    setTimeout(() => {
+        barras[i].style.transform = 'translateX(0)';
+        barras[j].style.transform = 'translateX(0)';
+        [lista[i], lista[j]] = [lista[j], lista[i]];
+        mostrarLista();
+    }, duracaoPasso / 2);
 }
 
 //função que inicia a ordenação ao clicar no botão
@@ -144,6 +165,12 @@ export function reiniciarLista(){
 
     passos = 0;// reinicia a contagem de passos
     contadorPassos.innerHTML = "Passos: " + passos;
+}
+
+export function alternarPausa(){
+    estado.estaPausado = !estado.estaPausado;
+    const botaoPausa = document.querySelector('#botao-pausa');
+    botaoPausa.textContent = estado.estaPausado ? '▶' : '❚❚';
 }
 
 // Código executado ao iniciar o programa, gerando uma lista inicial com valores aleatórios
