@@ -34,7 +34,7 @@ const estado = {
     estaPausado: false
 }
 
-let duracaoPasso = 250; //duração do passo (1000 = 1 segundo)
+let duracaoPasso = 500; //duração do passo (1000 = 1 segundo)
 let lista = []; // inicializando a lista
 let listaAtual = []; // utilizado para armazenar a lista atual para reiniciar
 let passos = 0; // inicializando o contador de passos
@@ -64,7 +64,6 @@ function atualizarVelocidade(velocidade){
 
 //função que gera uma lista aleatória
 function gerarListaAleatoria(tamanho) {
-    
 
     lista = Array.from({ length: tamanho }, () => Math.floor(Math.random() * 100) + 1); //gera uma lista com barras de tamanho entre 1 a 300
     listaAtual = Array.from(lista); // cria uma cópia da lista atual para reset
@@ -77,37 +76,29 @@ function mostrarLista() {
     const barrasAtivas = document.querySelectorAll('.barra.ativo');
     barrasAtivas.forEach(barra => barra.classList.remove('ativo'));
 
-    if (containerLista.children.length !== lista.length) {
-        containerLista.innerHTML = '';
-        lista.forEach((value) => {
-            const barra = document.createElement('div');
-            barra.className = 'barra';
-            barra.style.height = `${value * 3}px`;
-            containerLista.appendChild(barra);
-        });
-    } else {
-        const barras = containerLista.children;
-        lista.forEach((value, index) => {
-            barras[index].style.height = `${value * 3}px`;
-        });
-    }
+    containerLista.innerHTML = '';
+    lista.forEach((valor) => {
+        const barraContainer = document.createElement('div');
+        barraContainer.className = 'barra-container';
+
+        const barra = document.createElement('div');
+        barra.className = 'barra';
+        barra.style.height = `${valor * 3}px`;
+
+        const valorTexto = document.createElement('span');
+        valorTexto.className = 'valor-barra';
+        valorTexto.textContent = valor;
+
+        barraContainer.appendChild(barra);
+        barraContainer.appendChild(valorTexto);
+        containerLista.appendChild(barraContainer);
+    })
 }
 
 //função para realizar trocas em diferentes algoritmos de ordenação
 function trocar(i, j) {
-    const barras = containerLista.children;
-    const tempEsquerda = barras[i].offsetLeft;
-    const tempDireita = barras[j].offsetLeft;
-
-    barras[i].style.transform = `translateX(${tempDireita - tempEsquerda}px)`;
-    barras[j].style.transform = `translateX(${tempEsquerda - tempDireita}px)`;
-    
-    setTimeout(() => {
-        barras[i].style.transform = 'translateX(0)';
-        barras[j].style.transform = 'translateX(0)';
-        [lista[i], lista[j]] = [lista[j], lista[i]];
-        mostrarLista();
-    }, duracaoPasso / 2);
+    [lista[i], lista[j]] = [lista[j], lista[i]];
+    mostrarLista();
 }
 
 //função que inicia a ordenação ao clicar no botão
@@ -175,5 +166,3 @@ export function alternarPausa(){
 
 // Código executado ao iniciar o programa, gerando uma lista inicial com valores aleatórios
 gerarListaAleatoria(quantElementos);
-
-
