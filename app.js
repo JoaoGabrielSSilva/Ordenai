@@ -34,7 +34,7 @@ const estado = {
     estaPausado: false
 }
 
-let duracaoPasso = 500; //duração do passo (1000 = 1 segundo)
+let duracaoPasso = 1000; //duração do passo (1000 = 1 segundo)
 let lista = []; // inicializando a lista
 let listaAtual = []; // utilizado para armazenar a lista atual para reiniciar
 let passos = 0; // inicializando o contador de passos

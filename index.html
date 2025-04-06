@@ -37,27 +37,31 @@
 
     <div id="visualizador">
 
-        <div class="modificador-quantidade-box">
-            <p>Quantidade</p>
-            <button class="btn">5</button>
-            <button class="btn">10</button>
-            <button class="btn">20</button>
-            <button class="btn">30</button>
-            <button class="btn">50</button>
-        </div>
+    
+        <h2 id="contador-passos">Passos: 0</h2>
 
-        <div class="container-contador">
-            <h2 id="contador-passos">Passos: 0</h2>
+        <div class="container-visualizador">
+            <div class="modificador-quantidade-box">
+                <p>Quantidade</p>
+                <button class="btn">5</button>
+                <button class="btn">10</button>
+                <button class="btn">20</button>
+                <button class="btn">30</button>
+                <button class="btn">50</button>
+            </div>
+            
             <div id="container-lista"></div>
+
+            <div class="modificador-velocidade-box">
+                <p>Velocidade</p>
+                <button class="btn" id="botao-pausa" onclick="alternarPausa()">❚❚</button>
+                <button class="btn">0.5x</button>
+                <button class="btn">1.0x</button>
+                <button class="btn">2.0x</button>
+            </div>
         </div>
         
-        <div class="modificador-velocidade-box">
-            <p>Velocidade</p>
-            <button class="btn" id="botao-pausa" onclick="alternarPausa()">❚❚</button>
-            <button class="btn">0.5x</button>
-            <button class="btn">1.0x</button>
-            <button class="btn">2.0x</button>
-        </div>
+        
             
     </div>
 
