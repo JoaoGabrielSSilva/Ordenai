@@ -21,3 +21,4 @@ electron-builder/      # Ignora arquivos gerados pelo electron-builder
 *.tmp                  # Ignora arquivos temporários com extensão .tmp
 *.log                  # Ignora arquivos de log
 /node_modules
+/dist
