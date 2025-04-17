@@ -11,40 +11,28 @@ const contadorPassos = document.getElementById('contador-passos')  //recebendo o
 
 const botoesQuantidade = document.querySelectorAll('.modificador-quantidade-box .btn');
 
-botoesQuantidade.forEach(botao => {
-    botao.addEventListener('click', function() {
-      const quantidade = parseInt(this.textContent);
-      atualizarQuantidade(quantidade);
-    });
-});
-
 const botoesVelocidade = document.querySelectorAll('.modificador-velocidade-box .btn');
-
-botoesVelocidade.forEach(botao => {
-    botao.addEventListener('click', function() {
-      if (this.id !== 'botao-pausa'){
-        const velocidade = parseFloat(this.textContent.replace('x', ''));
-        atualizarVelocidade(velocidade);
-      }
-    });
-});
 
 const estado = {
     estaOrdenando: false,
     estaPausado: false
 }
 
-let duracaoPasso = 1000; //duração do passo (1000 = 1 segundo)
+let duracaoPasso = 500; //duração do passo (1000 = 1 segundo)
 let lista = []; // inicializando a lista
 let listaAtual = []; // utilizado para armazenar a lista atual para reiniciar
 let passos = 0; // inicializando o contador de passos
 let quantElementos = 5; // define a quantidade de elementos a serem ordenados
 
-// função que adiciona um passo de acordo com cada ordenação
-function atualizarPassos(){
-    passos = passos + 1; // adiciona um passo
-    contadorPassos.innerHTML = "Passos: " + passos; // atualiza o contador de passos
-}
+//----------------------------------------------------------------------------------------
+//Funções relacionadas com quantidade de elementos
+
+botoesQuantidade.forEach(botao => {
+    botao.addEventListener('click', function() {
+      const quantidade = parseInt(this.textContent);
+      atualizarQuantidade(quantidade);
+    });
+});
 
 function atualizarQuantidade(quantidade){
     quantElementos = quantidade;
@@ -56,11 +44,76 @@ function atualizarQuantidade(quantidade){
     console.log(quantElementos)
 }
 
+//----------------------------------------------------------------------------------------
+//Funções relacionadas com velocidade de ordenação
+
+botoesVelocidade.forEach(botao => {
+    botao.addEventListener('click', function() {
+      if (this.id !== 'botao-pausa'){
+        const velocidade = parseFloat(this.textContent.replace('x', ''));
+        atualizarVelocidade(velocidade);
+      }
+    });
+});
+
+function getDuracaoPasso(){
+    return duracaoPasso;
+}
+
 function atualizarVelocidade(velocidade){
     duracaoPasso = 500 / velocidade;
     console.log(duracaoPasso)    
 }
 
+//----------------------------------------------------------------------------------------
+//Funções relacionadas com as ordenações
+
+//função para realizar trocas em diferentes algoritmos de ordenação
+function trocar(i, j) {
+    [lista[i], lista[j]] = [lista[j], lista[i]];
+    mostrarLista();
+}
+
+
+//função que inicia a ordenação ao clicar no botão
+export function iniciarOrdenacao() {
+    estado.estaOrdenando = true;
+    var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
+    switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){// verifica qual foi o algoritmo escolhido e realiza a ordenação de acordo com o tipo escolhido
+        case 'Bubble Sort':
+            bubbleSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Quick Sort':
+            quickSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Merge Sort':
+            mergeSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Selection Sort':
+            selectionSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Insertion Sort':
+            insertionSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        case 'Bogo Sort':
+            bogoSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+            break;
+        default:
+            break;
+    }
+    
+}
+
+
+
+//----------------------------------------------------------------------------------------
+// Funções relacionadas com a aplicação
+
+// função que adiciona um passo de acordo com cada ordenação
+function atualizarPassos(){
+    passos = passos + 1; // adiciona um passo
+    contadorPassos.innerHTML = "Passos: " + passos; // atualiza o contador de passos
+}
 
 //função que gera uma lista aleatória
 function gerarListaAleatoria(tamanho) {
@@ -93,41 +146,6 @@ function mostrarLista() {
         barraContainer.appendChild(valorTexto);
         containerLista.appendChild(barraContainer);
     })
-}
-
-//função para realizar trocas em diferentes algoritmos de ordenação
-function trocar(i, j) {
-    [lista[i], lista[j]] = [lista[j], lista[i]];
-    mostrarLista();
-}
-
-//função que inicia a ordenação ao clicar no botão
-export function iniciarOrdenacao() {
-    estado.estaOrdenando = true;
-    var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
-    switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){// verifica qual foi o algoritmo escolhido e realiza a ordenação de acordo com o tipo escolhido
-        case 'Bubble Sort':
-            bubbleSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Quick Sort':
-            quickSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Merge Sort':
-            mergeSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Selection Sort':
-            selectionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Insertion Sort':
-            insertionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Bogo Sort':
-            bogoSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        default:
-            break;
-    }
-    
 }
 
 //função que é executada ao clicar no botão de gerar lista
@@ -163,6 +181,11 @@ export function alternarPausa(){
     const botaoPausa = document.querySelector('#botao-pausa');
     botaoPausa.textContent = estado.estaPausado ? '▶' : '❚❚';
 }
+
+
+
+
+
 
 // Código executado ao iniciar o programa, gerando uma lista inicial com valores aleatórios
 gerarListaAleatoria(quantElementos);

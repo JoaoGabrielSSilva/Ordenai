@@ -19,21 +19,25 @@
 
         <!-- Botão que retorna as barras para sua posição original  -->
         <button class="btn" onclick="reiniciarLista()">Reiniciar Lista</button>
+
+        <h1>Sorting Visualizer</h1>
     </div>
     
-    
-    <!-- Selecionador do algoritmo a ser utilizado para a ordenação -->
-    <select name="algoritmos" id="selec-algoritmos">
-        <option value="" disabled selected>Selecione um Algoritmo</option>
-        <option value="bubbleSort">Bubble Sort</option>
-        <option value="quickSort">Quick Sort</option>
-        <option value="mergeSort">Merge Sort</option>
-        <option value="selectionSort">Selection Sort</option>
-        <option value="insertionSort">Insertion Sort</option>
-        <option value="bogoSort">Bogo Sort</option>
-    </select>
+    <div class="selecionadorAlgoritmos">
+        <!-- Selecionador do algoritmo a ser utilizado para a ordenação -->
+        <select name="algoritmos" id="selec-algoritmos">
+            <option value="" disabled selected>Selecione um Algoritmo</option>
+            <option value="bubbleSort">Bubble Sort</option>
+            <option value="quickSort">Quick Sort</option>
+            <option value="mergeSort">Merge Sort</option>
+            <option value="selectionSort">Selection Sort</option>
+            <option value="insertionSort">Insertion Sort</option>
+            <option value="bogoSort">Bogo Sort</option>
+        </select>
 
-    <h1>Sorting Visualizer</h1>
+        <p>?</p>
+    </div>
+    
 
     <div id="visualizador">
 

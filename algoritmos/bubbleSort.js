@@ -1,6 +1,6 @@
 //implementação do bubble sort
 
-export async function bubbleSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista) {
+export async function bubbleSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista) {
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     for (let i = 0; i < lista.length - 1 && estado.estaOrdenando; i++) {
@@ -18,14 +18,14 @@ export async function bubbleSort(lista, estado, duracaoPasso, trocar, atualizarP
             if (lista[j] > lista[j + 1]) { //caso o elemento atual seja maior que o próximo
                 trocar(j, j + 1); // troca-se de lugar o elemento atual pelo próximo
                 atualizarPassos();// incrementa-se o contador de passos
-                await new Promise(resolve => setTimeout(resolve, duracaoPasso)); // atrasa a visualização na velocidade escolhida
+                await new Promise(resolve => setTimeout(resolve, getDuracaoPasso())); // atrasa a visualização na velocidade escolhida
                 mostrarLista(); // exibe a lista após realizar a troca
 
                 const barrasAtualizadas = document.querySelectorAll('.barra'); // atualiza as barras após a troca
                 barrasAtualizadas[j].classList.add('ativo');
                 barrasAtualizadas[j + 1].classList.add('ativo');
 
-                await new Promise(resolve => setTimeout(resolve, duracaoPasso / 2));
+                await new Promise(resolve => setTimeout(resolve, getDuracaoPasso() / 2));
                 barrasAtualizadas[j].classList.remove('ativo');
                 barrasAtualizadas[j + 1].classList.remove('ativo');
             } else {

@@ -1,5 +1,5 @@
 //implementação do bogo sort
-export async function bogoSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista){
+export async function bogoSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista){
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
     
     //Verifica se a lista está ordenada
@@ -38,7 +38,7 @@ export async function bogoSort(lista, estado, duracaoPasso, trocar, atualizarPas
 
         atualizarPassos()// incrementa o contador de passos
 
-        await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+        await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
 
         for (let i = 0; i < lista.length; i++) {// retorna a cor original das barras
             barras[i].classList.remove('ativo');
