@@ -1,6 +1,6 @@
 //implementação do merge sort
 
-export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista) {
+export async function mergeSort(lista, estado, getDuracaoPasso, atualizarPassos, mostrarLista) {
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     async function mesclar(inicio, meio, fim) {
@@ -46,7 +46,7 @@ export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPa
                 j++;
             }
             atualizarPassos();
-            await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+            await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
             mostrarLista();
 
             const barrasAtualizadas = document.querySelectorAll('.barra');
@@ -76,7 +76,7 @@ export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPa
 
             lista[k] = esquerda[i];
             atualizarPassos();
-            await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+            await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
             mostrarLista();
             
             const barrasAtualizadas = document.querySelectorAll('.barra');
@@ -103,7 +103,7 @@ export async function mergeSort(lista, estado, duracaoPasso, trocar, atualizarPa
 
             lista[k] = direita[j];
             atualizarPassos();
-            await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+            await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
             mostrarLista();
 
             const barrasAtualizadas = document.querySelectorAll('.barra');

@@ -1,6 +1,6 @@
 //implementação do insertion sort
 
-export async function insertionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista) {
+export async function insertionSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista) {
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     for (let i = 1; i  < lista.length && estado.estaOrdenando; i++) { // percorre-se a lista
@@ -22,7 +22,7 @@ export async function insertionSort(lista, estado, duracaoPasso, trocar, atualiz
             barras[j].classList.add('ativo'); // adiciona-se a classe ativo à barra atual
             trocar(j, j + 1)// o elemento anterior a chave é colocado na posição da chave
             atualizarPassos();
-            await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+            await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
             mostrarLista();
 
             const barrasAtualizadas = document.querySelectorAll('.barra'); // atualiza-se as barras
@@ -37,7 +37,7 @@ export async function insertionSort(lista, estado, duracaoPasso, trocar, atualiz
 
         lista[j + 1] = chave; // a chave é colocado na posição correta
 
-        await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+        await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
         mostrarLista();
     }
 

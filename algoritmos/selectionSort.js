@@ -1,6 +1,6 @@
 //implementação do selection sort
 
-export async function selectionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista) {
+export async function selectionSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista) {
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     for (let i = 0; i < lista.length - 1 && estado.estaOrdenando; i++) {
@@ -30,7 +30,7 @@ export async function selectionSort(lista, estado, duracaoPasso, trocar, atualiz
                 barras[minIndex].classList.add('ativo'); // troca a cor da barra atual para demonstrar que está sendo comparada
             }
 
-            await new Promise(resolve => setTimeout(resolve, duracaoPasso)); 
+            await new Promise(resolve => setTimeout(resolve, getDuracaoPasso())); 
             if(j !== minIndex){
                 barras[j].classList.remove('ativo'); // remove-se a cor da barra anterior que era a chave
             }
@@ -45,7 +45,7 @@ export async function selectionSort(lista, estado, duracaoPasso, trocar, atualiz
             const barrasAtualizadas = document.querySelectorAll('.barra'); // atualiza as barras após a troca
             barrasAtualizadas[i].classList.add('chave');
             barrasAtualizadas[minIndex].classList.add('ativo');
-            await new Promise(resolve => setTimeout(resolve, duracaoPasso)); // atrasa a visualização na velocidade escolhida
+            await new Promise(resolve => setTimeout(resolve, getDuracaoPasso())); // atrasa a visualização na velocidade escolhida
         }
 
         const barrasAtuais = document.querySelectorAll('.barra');

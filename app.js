@@ -13,6 +13,8 @@ const botoesQuantidade = document.querySelectorAll('.modificador-quantidade-box 
 
 const botoesVelocidade = document.querySelectorAll('.modificador-velocidade-box .btn');
 
+const seletorAlgoritmos = document.getElementById('selec-algoritmos');
+
 const estado = {
     estaOrdenando: false,
     estaPausado: false
@@ -62,6 +64,9 @@ function getDuracaoPasso(){
 
 function atualizarVelocidade(velocidade){
     duracaoPasso = 500 / velocidade;
+    if (estado.estaPausado === true){
+        alternarPausa()
+    }
     console.log(duracaoPasso)    
 }
 
@@ -78,6 +83,7 @@ function trocar(i, j) {
 //função que inicia a ordenação ao clicar no botão
 export function iniciarOrdenacao() {
     estado.estaOrdenando = true;
+    seletorAlgoritmos.disabled = true; //Desabilita a seleção de algoritmos até que a ordenação atual tenha terminado
     var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
     switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){// verifica qual foi o algoritmo escolhido e realiza a ordenação de acordo com o tipo escolhido
         case 'Bubble Sort':
@@ -87,7 +93,7 @@ export function iniciarOrdenacao() {
             quickSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
             break;
         case 'Merge Sort':
-            mergeSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+            mergeSort(lista, estado, getDuracaoPasso, atualizarPassos, mostrarLista);
             break;
         case 'Selection Sort':
             selectionSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
@@ -104,8 +110,6 @@ export function iniciarOrdenacao() {
     
 }
 
-
-
 //----------------------------------------------------------------------------------------
 // Funções relacionadas com a aplicação
 
@@ -117,6 +121,7 @@ function atualizarPassos(){
 
 //função que gera uma lista aleatória
 function gerarListaAleatoria(tamanho) {
+    seletorAlgoritmos.disabled = false;
 
     lista = Array.from({ length: tamanho }, () => Math.floor(Math.random() * 100) + 1); //gera uma lista com barras de tamanho entre 1 a 300
     listaAtual = Array.from(lista); // cria uma cópia da lista atual para reset
@@ -166,6 +171,7 @@ export async function gerarLista() {
 //função que é executada ao clicar no botão de reiniciar lista
 export function reiniciarLista(){
     estado.estaOrdenando = false;//define que a lista não está ordenada
+    seletorAlgoritmos.disabled = false;//habilita a seleção de algoritmos
     lista = Array.from(listaAtual);//cria uma cópia dos valores registrados na lista auxiliar para a lista principal
     mostrarLista();// exibe a lista reiniciada
     
@@ -182,9 +188,20 @@ export function alternarPausa(){
     botaoPausa.textContent = estado.estaPausado ? '▶' : '❚❚';
 }
 
+//Função para exibir a explicação do algoritmo de ordenação escolhido
+document.getElementById('selec-algoritmos').addEventListener('change', function() {
+    const elementoTooltip = document.querySelector('.botao-duvida');
+    const explicacoes = {
+        bubbleSort: "Este algoritmo funciona realizando comparações partindo do elemento mais à esquerda com o elemento seguinte, com o objetivo de transportar os maiores elementos para a direita. Quando um elemento maior é comparado com o seguinte, o qual é menor, o algoritmo realiza a troca do mesmo.",
+        quickSort: "Este algoritmo realiza a divisão dos elementos a partir de um pivô, o qual pode ser o elemento central, e separa os elementos menores ao lado esquerdo e maiores do lado direito. A partir disso, os lados são ordenados recursivamente utilizando o mesmo algoritmo.",
+        mergeSort: "Este algoritmo utiliza duas listas para combiná-las em uma lista única. Utilizando o menor valor de ambas as listas, o valor é inserido em uma lista auxiliar, então o próximo menor valor é comparado entre ambas as listas e o menor é inserido na lista auxiliar. A mesclagem continua sendo realizada até que haja apenas uma lista única.",
+        selectionSort: "Este algoritmo realiza a seleção do menor valor da lista para trocá-lo pelo valor da primeira posição e a partir disso o próximo menor valor é selecionado e trocado pelo valor da segunda posição, esse processo é repetido até que a lista esteja ordenada completamente.",
+        insertionSort: "Este algoritmo funciona desde a inserção do primeiro elemento ou a partir de uma lista já ordenada previamente. Cada elemento é inserido na sua devida posição para que a lista continue ordenada.",
+        bogoSort: "Este algoritmo é considerado como ineficiente. Seu funcionamento embaralha os elementos da lista repetidamente até que estejam ordenados, podendo realizar a ordenação na primeira tentativa ou após muitas tentativas, dependendo da quantidade de elementos."
+    };
 
-
-
+    elementoTooltip.setAttribute('data-tooltip', explicacoes[this.value] || 'Selecione um algoritmo para ver sua explicação');
+});
 
 
 // Código executado ao iniciar o programa, gerando uma lista inicial com valores aleatórios

@@ -93,7 +93,17 @@ h1 {
         color: var(--secundaria);
     }
 
-    p{
+    #selec-algoritmos:disabled {
+        cursor: not-allowed;
+    }
+
+    #selec-algoritmos:disabled:hover {
+        background-color: var(--primaria);
+        color: var(--cor-fonte);
+    }
+
+    .botao-duvida{
+        position: relative;
         width: 2.5rem;
         height: 2.5rem;
         background-color: var(--primaria);
@@ -105,10 +115,34 @@ h1 {
         color: var(--cor-fonte);
     }
 
-    p:hover{
+    .botao-duvida:hover{
         background-color: var(--terciaria);
         color: var(--secundaria);
         cursor: help;
+    }
+
+    .botao-duvida::after{
+        content: attr(data-tooltip);
+        position: absolute;
+        width: 19rem;
+        background-color: var(--primaria);
+        color: var(--cor-fonte);
+        border: 2px solid var(--secundaria);
+        padding: 1rem;
+        border-radius: 10px;
+        font-size: 1rem;
+        text-align: justify;
+        top: 50%;
+        left: calc(100% + 1rem);
+        transform: translateY(-50%);
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+   .botao-duvida:hover::after{
+        visibility: visible;
+        opacity: 1;
     }
 }
 

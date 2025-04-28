@@ -1,6 +1,6 @@
 //implementação do quick sort
 
-export async function quickSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista) {
+export async function quickSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista) {
     const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     async function particao(baixa, alta) {
@@ -22,7 +22,7 @@ export async function quickSort(lista, estado, duracaoPasso, trocar, atualizarPa
                 trocar(i, j);
                 atualizarPassos();
 
-                await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+                await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
                 mostrarLista();
 
                 const barrasAtualizadas = document.querySelectorAll('.barra');
@@ -35,7 +35,7 @@ export async function quickSort(lista, estado, duracaoPasso, trocar, atualizarPa
         trocar(i + 1, alta);
         atualizarPassos();
 
-        await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+        await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
         mostrarLista();
 
         return i + 1;
