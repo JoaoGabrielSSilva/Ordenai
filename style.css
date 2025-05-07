@@ -3,13 +3,13 @@
 /* Variáveis */
 :root {
     font-size: 16px;
-    --cor-fonte: #000;
-    --fundo: #fcf5e4;
-    --primaria: #edb217;
-    --secundaria: #212121;
-    --terciaria: #f4143f;
-    --ativo: #EF2F2A;
-    --chave: #45DB52;
+    --cor-fonte: #dee2e6;
+    --fundo: #212529;
+    --primaria: #343a40;
+    --secundaria: #997404;
+    --terciaria: #2b3035;
+    --ativo: #842029;
+    --chave: #0f5132;
     --fonte-primaria: "Sarpanch", sans-serif;
     --fonte-secundaria: "Inter", sans-serif;
 }
@@ -232,12 +232,12 @@ h1 {
             font-size: 1rem;
             color: var(--cor-fonte);
             font-weight: 600;
-            background-color: var(--secundaria);
+            background-color: var(--terciaria);
 
             p {
                 text-align: center;
                 margin: 1rem;
-                color: var(--primaria);
+                color: var(--cor-fonte);
                 font-weight: 400;
             }
 

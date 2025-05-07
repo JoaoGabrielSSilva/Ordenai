@@ -82,9 +82,12 @@ function trocar(i, j) {
 
 //função que inicia a ordenação ao clicar no botão
 export function iniciarOrdenacao() {
+    var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
+    if (!tipoOrdenacao.value) return;
+
     estado.estaOrdenando = true;
     seletorAlgoritmos.disabled = true; //Desabilita a seleção de algoritmos até que a ordenação atual tenha terminado
-    var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
+
     switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){// verifica qual foi o algoritmo escolhido e realiza a ordenação de acordo com o tipo escolhido
         case 'Bubble Sort':
             bubbleSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
