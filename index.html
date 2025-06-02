@@ -5,28 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorting Visualizer</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <h1>Sorting Visualizer</h1>
 
-    <div class="botoesControle">
-        <!-- Botão que inicia a ordenação -->
-        <button class="btn" onclick="iniciarOrdenacao()">Iniciar</button>
-
-        <!-- Botão que gera uma nova lista  -->
-        <button class="btn" onclick="gerarLista()">Gerar Lista</button>
-
-        <!-- Botão que retorna as barras para sua posição original  -->
-        <button class="btn" onclick="reiniciarLista()">Reiniciar Lista</button>
-
-        <h1>Sorting Visualizer</h1>
-    </div>
-    
     <div class="selecionadorAlgoritmos">
         <!-- Selecionador do algoritmo a ser utilizado para a ordenação -->
         <select name="algoritmos" id="selec-algoritmos">
-            <option value="" disabled selected>Selecione um Algoritmo</option>
+            <option value="" disabled selected>Algoritmo</option>
             <option value="bubbleSort">Bubble Sort</option>
             <option value="quickSort">Quick Sort</option>
             <option value="mergeSort">Merge Sort</option>
@@ -37,45 +26,46 @@
 
         <p class="botao-duvida"  data-tooltip="Selecione um algoritmo para ver sua explicação">?</p>
     </div>
-    
 
     <div id="visualizador">
-
-    
-        <h2 id="contador-passos">Passos: 0</h2>
-
-        <div class="container-visualizador">
-            <div class="modificador-quantidade-box">
-                <p>Quantidade</p>
-                <button class="btn">5</button>
-                <button class="btn">10</button>
-                <button class="btn">20</button>
-                <button class="btn">30</button>
-                <button class="btn">50</button>
-            </div>
-            
-            <div id="container-lista"></div>
-
-            <div class="modificador-velocidade-box">
-                <p>Velocidade</p>
-                <button class="btn" id="botao-pausa" onclick="alternarPausa()">❚❚</button>
-                <button class="btn">0.5x</button>
-                <button class="btn">1.0x</button>
-                <button class="btn">2.0x</button>
-            </div>
+        <div class="modificador-quantidade">
+            <p>Quantidade</p>
+            <button class="btn">5</button>
+            <button class="btn">10</button>
+            <button class="btn">20</button>
+            <button class="btn">30</button>
+            <button class="btn">50</button>
         </div>
         
+        <div id="container-lista"></div>
+        <h2 id="contador-passos">Passos: 0</h2>
+    </div>
+
+    <div class="botoesControle">
+        <!-- Botão que retorna as barras para sua posição original  -->
+        <button class="btn-controle" onclick="reiniciarLista()">↻</button>
+
+        <!-- Botão que inicia a ordenação -->
+        <button class="btn-controle" id="botaoIniciarPausa" onclick="iniciarOrdenacao()">▶</button>
+
+        <!-- Botão que gera uma nova lista  -->
+        <button class="btn-controle" onclick="gerarLista()">↹</button>
+
         
-            
+    </div>
+
+    <div class="modificador-velocidade">
+        <button class="btn">0.5x</button>
+        <button class="btn">1.0x</button>
+        <button class="btn">2.0x</button>
     </div>
 
     <script type="module">
-        import {iniciarOrdenacao, gerarLista, reiniciarLista, alternarPausa} from './app.js';
+        import {iniciarOrdenacao, gerarLista, reiniciarLista} from './app.js';
 
         window.iniciarOrdenacao = iniciarOrdenacao;
         window.gerarLista = gerarLista;
         window.reiniciarLista = reiniciarLista;
-        window.alternarPausa = alternarPausa; 
     </script>
 </body>
 

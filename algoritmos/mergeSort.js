@@ -54,8 +54,8 @@ export async function mergeSort(lista, estado, getDuracaoPasso, atualizarPassos,
                 barrasAtualizadas[x].classList.add('chave');
             }
             if (i < num1){
-                barrasAtualizadas[inicio + i].classList.remove('chave');
                 barrasAtualizadas[inicio + i].classList.add('ativo');
+                barrasAtualizadas[inicio + i].classList.remove('chave');
             }
             if (j < num2){
                 barrasAtualizadas[meio + 1 + j].classList.remove('chave');

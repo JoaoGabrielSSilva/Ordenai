@@ -1,10 +1,10 @@
 //implementação do quick sort
 
 export async function quickSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista) {
-    const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
 
     async function particao(baixa, alta) {
         const pivot = lista[alta]; // define o pivô 
+        const barras = document.querySelectorAll('.barra'); // seleciona-se todas as barras
         barras[alta].classList.add('chave'); // adiciona a classe 'chave' à barra do pivô
 
         let i = baixa - 1;
@@ -16,26 +16,36 @@ export async function quickSort(lista, estado, getDuracaoPasso, trocar, atualiza
                 if (!estado.estaOrdenando) return;
             }
 
-            barras[j].classList.add('ativo'); // adiciona a classe 'ativo' à barra atual
+            const barrasAtuais = document.querySelectorAll('.barra');
+            barrasAtuais[j].classList.add('ativo'); 
+            await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
             if(lista[j] < pivot) {
                 i++;
+                barrasAtuais[i].classList.add('ativo');
+
+                await new Promise(resolve => setTimeout(resolve, getDuracaoPasso() / 2)); 
                 trocar(i, j);
                 atualizarPassos();
-
-                await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
                 mostrarLista();
 
-                const barrasAtualizadas = document.querySelectorAll('.barra');
-                barrasAtualizadas[alta].classList.add('chave');
+                const barrasPos = document.querySelectorAll('.barra');
+                barrasPos[alta].classList.add('chave');
+                barrasPos[i].classList.add('ativo');
+                barrasPos[j].classList.add('ativo');
             }
 
-            barras[j].classList.remove('ativo'); // remove a classe 'ativo' da barra atual
+            const barrasLimpar = document.querySelectorAll('.barra');
+            barrasLimpar[j].classList.remove('ativo');
+            if (i >= baixa) barrasLimpar[i].classList.remove('ativo');
+
         }
+
+        const barrasFinal = document.querySelectorAll('.barra');
+        barrasFinal[i + 1].classList.add('ativo');
+        barrasFinal[alta].classList.add('ativo');
 
         trocar(i + 1, alta);
         atualizarPassos();
-
-        await new Promise(resolve => setTimeout(resolve, getDuracaoPasso()));
         mostrarLista();
 
         return i + 1;
@@ -56,4 +66,6 @@ export async function quickSort(lista, estado, getDuracaoPasso, trocar, atualiza
         barra.classList.remove('ativo');
         barra.classList.remove('chave');
     });
+
+    estado.estaOrdenando = false;
 }
