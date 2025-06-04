@@ -40,6 +40,8 @@ h1 {
     text-align: center;
     margin: 1rem;
     color: var(--cor-fonte);
+    cursor: default;
+    user-select: none;
 }
 
 .selecionadorAlgoritmos{
@@ -145,6 +147,8 @@ h1 {
             margin: 1rem;
             color: var(--cor-fonte);
             font-weight: 400;
+            cursor: default;
+            user-select: none;
         }
 
         .btn {
@@ -208,6 +212,8 @@ h1 {
                 color: var(--cor-fonte);
                 font-weight: 500;
                 margin: 0.3rem 0;
+                cursor: default;
+                user-select: none;
             }
         }
     }
@@ -218,6 +224,8 @@ h1 {
         font-size: 1rem;
         font-weight: 700;
         color: var(--cor-fonte);
+        cursor: default;
+        user-select: none;
     }
 }
 

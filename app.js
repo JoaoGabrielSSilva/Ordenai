@@ -37,6 +37,9 @@ botoesQuantidade.forEach(botao => {
 function atualizarQuantidade(quantidade) {
     estado.estaOrdenando = false;
     estado.estaPausado = false;
+
+    
+    
     seletorAlgoritmos.disabled = false;
 
     setTimeout(() => {
@@ -45,9 +48,7 @@ function atualizarQuantidade(quantidade) {
         passos = 0;
         contadorPassos.innerHTML = "Passos: " + passos;
 
-        const botaoIniciarPausa = document.getElementById('botaoIniciarPausa');
-        botaoIniciarPausa.textContent = '▶';
-    }, 100);
+    }, 500);
 
 }
 
@@ -84,6 +85,14 @@ export function iniciarOrdenacao() {
     if (!estado.estaOrdenando) {
         var tipoOrdenacao = document.getElementById("selec-algoritmos");
         if (!tipoOrdenacao.value) return;
+
+        if (estaOrdenada(lista)) {
+            console.log("A lista está ordenada")
+            estado.estaOrdenando = false;
+            mostrarLista();
+            return
+        }
+
         estado.estaOrdenando = true;
         estado.estaPausado = false;
         seletorAlgoritmos.disabled = true; // Impede mudanças durante a execução
@@ -117,6 +126,16 @@ export function iniciarOrdenacao() {
         estado.estaPausado = !estado.estaPausado;
         botaoIniciarPausa.textContent = estado.estaPausado ? '▶' : '❚❚';
     }
+}
+
+
+function estaOrdenada(lista) {
+    for (let i = 0; i < lista.length - 1; i++) {
+        if (lista[i] > lista[i + 1]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 //----------------------------------------------------------------------------------------
@@ -165,14 +184,12 @@ function mostrarLista() {
 // Gera uma nova lista aleatória (chamada ao clicar no botão de "Gerar")
 export async function gerarLista() {
     estado.estaOrdenando = false;
-    await new Promise(resolve => setTimeout(resolve, duracaoPasso));
+    await new Promise(resolve => setTimeout(resolve, 500));
     containerLista.innerHTML = '';
     gerarListaAleatoria(quantElementos);
     passos = 0;
     contadorPassos.innerHTML = "Passos: " + passos;
 
-    const botaoIniciarPausa = document.getElementById('botaoIniciarPausa');
-    botaoIniciarPausa.textContent = '▶';
 }
 
 // Reinicia a lista para o estado original (chamada ao clicar em "Reiniciar")
@@ -185,21 +202,20 @@ export function reiniciarLista() {
         passos = 0;
         contadorPassos.innerHTML = "Passos: " + passos;
     
-        const botaoIniciarPausa = document.getElementById('botaoIniciarPausa');
-        botaoIniciarPausa.textContent = '▶';
-    }, 100);
+    }, 500);
 }
+
 
 // Mostra a explicação do algoritmo selecionado quando muda o seletor
 document.getElementById('selec-algoritmos').addEventListener('change', function() {
     const elementoTooltip = document.querySelector('.botao-duvida');
     const explicacoes = {
-        bubbleSort: "Este algoritmo compara pares adjacentes e troca-os se estiverem fora de ordem, empurrando o maior elemento para o final.",
+        bubbleSort: "Este algoritmo compara pares adjacentes e troca-os se estiverem fora de ordem, empurrando os maiores elementos para o final.",
         quickSort: "Escolhe um pivô e divide a lista em menores e maiores que ele, ordenando recursivamente as partes.",
         mergeSort: "Divide a lista até ficar com listas unitárias e depois vai mesclando-as mantendo a ordem.",
-        selectionSort: "Seleciona o menor elemento restante e o coloca na posição correta, repetindo até ordenar tudo.",
+        selectionSort: "Seleciona o menor elemento restante e o coloca na posição correta, repetindo até que todos os elementos estejam ordenados.",
         insertionSort: "Insere cada elemento na posição correta dentro da parte já ordenada da lista.",
-        bogoSort: "Embaralha a lista repetidamente até que acidentalmente fique ordenada. Ineficiente, mas engraçado."
+        bogoSort: "Embaralha a lista repetidamente até que acidentalmente fique ordenada. Inviável para o desenvolvimento de softwares."
     };
     elementoTooltip.setAttribute('data-tooltip', explicacoes[this.value] || 'Selecione um algoritmo para ver sua explicação');
 });
