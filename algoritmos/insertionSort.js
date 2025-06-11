@@ -54,7 +54,4 @@ export async function insertionSort(lista, estado, getDuracaoPasso, trocar, atua
 
         estado.estaOrdenando = false;
     }
-    
-
-    
 }

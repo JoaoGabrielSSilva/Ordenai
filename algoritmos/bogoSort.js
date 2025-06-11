@@ -63,8 +63,4 @@ export async function bogoSort(lista, estado, getDuracaoPasso, trocar, atualizar
         estado.estaOrdenando = false;
     }
     
-
-    
-    
-    
 }

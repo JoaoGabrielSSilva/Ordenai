@@ -40,5 +40,4 @@ export async function bubbleSort(lista, estado, getDuracaoPasso, trocar, atualiz
         estado.estaOrdenando = false;
     }
 
-    
 }
