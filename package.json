@@ -4,7 +4,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.sortingvisualizer",
+    "files": [
+      "index.js",
+      "index.html",
+      "style.css",
+      "app.js",
+      "algoritmos/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": ["portable"]
+    }
   },
   "repository": {
     "type": "git",
@@ -19,6 +36,7 @@
   "homepage": "https://github.com/JoaoGabrielSSilva/SortingVisualizer#readme",
   "description": "",
   "devDependencies": {
-    "electron": "^35.1.0"
+    "electron": "^35.1.0",
+    "electron-builder": "^26.0.12"
   }
 }

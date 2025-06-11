@@ -1,3 +1,4 @@
+// Importando as funções dos diferentes algoritmos de ordenação
 import { bubbleSort } from "./algoritmos/bubbleSort.js";
 import { bogoSort } from "./algoritmos/bogoSort.js";
 import { insertionSort } from "./algoritmos/insertionSort.js";
@@ -5,148 +6,219 @@ import { mergeSort } from "./algoritmos/mergeSort.js";
 import { quickSort } from "./algoritmos/quickSort.js";
 import { selectionSort } from "./algoritmos/selectionSort.js";
 
-//definição das variáveis
-const containerLista = document.getElementById('container-lista'); //recebendo o elemento que exibe as barras da lista
-const contadorPassos = document.getElementById('contador-passos')  //recebendo o elemento que exibe a contagem de passos
+// Pegando os elementos do DOM que serão manipulados
+const containerLista = document.getElementById('container-lista'); // Local onde as barras são exibidas
+const contadorPassos = document.getElementById('contador-passos'); // Contador de passos realizados
+const botoesQuantidade = document.querySelectorAll('.modificador-quantidade .btn'); // Botões para definir quantos elementos terá a lista
+const botoesVelocidade = document.querySelectorAll('.modificador-velocidade .btn'); // Botões para ajustar a velocidade da ordenação
+const seletorAlgoritmos = document.getElementById('selec-algoritmos'); // Seletor do algoritmo de ordenação
 
-const botoesQuantidade = document.querySelectorAll('.modificador-quantidade-box .btn');
+// Estado do programa: indica se está ordenando ou pausado
+const estado = {
+    estaOrdenando: false,
+    estaPausado: false
+};
 
+let duracaoPasso = 500; // Tempo (em ms) entre cada passo da ordenação
+let lista = []; // Lista principal de números a ser ordenada
+let listaAtual = []; // Cópia da lista original para reiniciar quando necessário
+let passos = 0; // Contador de passos realizados durante a ordenação
+let quantElementos = 5; // Quantidade de elementos na lista (padrão inicial)
+
+//----------------------------------------------------------------------------------------
+// Função relacionada à seleção da quantidade de elementos
 botoesQuantidade.forEach(botao => {
     botao.addEventListener('click', function() {
-      const quantidade = parseInt(this.textContent);
-      atualizarQuantidade(quantidade);
+        const quantidade = parseInt(this.textContent);
+        atualizarQuantidade(quantidade); // Atualiza a quantidade e gera nova lista
     });
 });
 
-const botoesVelocidade = document.querySelectorAll('.modificador-velocidade-box .btn');
+function atualizarQuantidade(quantidade) {
+    estado.estaOrdenando = false;
+    estado.estaPausado = false;
 
+    
+    
+    seletorAlgoritmos.disabled = false;
+
+    setTimeout(() => {
+        quantElementos = quantidade;
+        gerarListaAleatoria(quantElementos); // Gera uma nova lista com a nova quantidade
+        passos = 0;
+        contadorPassos.innerHTML = "Passos: " + passos;
+
+    }, 500);
+
+}
+
+//----------------------------------------------------------------------------------------
+// Funções relacionadas à velocidade de execução
 botoesVelocidade.forEach(botao => {
     botao.addEventListener('click', function() {
-      const velocidade = parseInt(this.textContent.replace('x', ''));
-      atualizarVelocidade(velocidade);
+        if (this.id !== 'botao-pausa') {
+            const velocidade = parseFloat(this.textContent.replace('x', ''));
+            atualizarVelocidade(velocidade); // Ajusta a velocidade de execução
+        }
     });
 });
 
-const estado = {
-    estaOrdenando: false
+function getDuracaoPasso() {
+    return duracaoPasso;
 }
 
-let duracaoPasso = 500; //duração do passo (500 = 0.5 segundo)
-let lista = []; // inicializando a lista
-let listaAtual = []; // utilizado para armazenar a lista atual para reiniciar
-let passos = 0; // inicializando o contador de passos
-let quantElementos = 5; // define a quantidade de elementos a serem ordenados
-
-// função que adiciona um passo de acordo com cada ordenação
-function atualizarPassos(){
-    passos = passos + 1; // adiciona um passo
-    contadorPassos.innerHTML = "Passos: " + passos; // atualiza o contador de passos
+function atualizarVelocidade(velocidade) {
+    duracaoPasso = 500 / velocidade; // Quanto maior a velocidade, menor a duração do passo
 }
 
-function atualizarQuantidade(quantidade){
-    quantElementos = quantidade;
-    gerarListaAleatoria(quantElementos);
-
-    passos = 0;
-    contadorPassos.innerHTML = "Passos: " + passos; // atualiza o contador de passos
-    estado.estaOrdenando = false;
-    console.log(quantElementos)
-}
-
-function atualizarVelocidade(velocidade){
-    duracaoPasso = 1000 / velocidade;
-    console.log(duracaoPasso)    
+//----------------------------------------------------------------------------------------
+// Funções relacionadas aos algoritmos de ordenação
+function trocar(i, j) {
+    [lista[i], lista[j]] = [lista[j], lista[i]]; // Troca dois elementos na lista
+    mostrarLista(); // Atualiza a exibição visual
 }
 
 
-//função que gera uma lista aleatória
+// Função chamada ao clicar no botão de iniciar/pausar a ordenação
+export function iniciarOrdenacao() {
+    const botaoIniciarPausa = document.getElementById('botaoIniciarPausa');
+    if (!estado.estaOrdenando) {
+        var tipoOrdenacao = document.getElementById("selec-algoritmos");
+        if (!tipoOrdenacao.value) return;
+
+        if (estaOrdenada(lista)) {
+            console.log("A lista está ordenada")
+            estado.estaOrdenando = false;
+            mostrarLista();
+            return
+        }
+
+        estado.estaOrdenando = true;
+        estado.estaPausado = false;
+        seletorAlgoritmos.disabled = true; // Impede mudanças durante a execução
+        botaoIniciarPausa.textContent = '❚❚'; // Muda ícone para pause
+
+        // Executa o algoritmo selecionado
+        switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text) {
+            case 'Bubble Sort':
+                bubbleSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+                break;
+            case 'Quick Sort':
+                quickSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+                break;
+            case 'Merge Sort':
+                mergeSort(lista, estado, getDuracaoPasso, atualizarPassos, mostrarLista);
+                break;
+            case 'Selection Sort':
+                selectionSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+                break;
+            case 'Insertion Sort':
+                insertionSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+                break;
+            case 'Bogo Sort':
+                bogoSort(lista, estado, getDuracaoPasso, trocar, atualizarPassos, mostrarLista);
+                break;
+            default:
+                break;
+        }
+    } else {
+        // Pausa ou retoma a execução
+        estado.estaPausado = !estado.estaPausado;
+        botaoIniciarPausa.textContent = estado.estaPausado ? '▶' : '❚❚';
+    }
+}
+
+
+function estaOrdenada(lista) {
+    for (let i = 0; i < lista.length - 1; i++) {
+        if (lista[i] > lista[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//----------------------------------------------------------------------------------------
+// Funções auxiliares do sistema
+
+// Adiciona 1 ao contador de passos e atualiza a interface
+function atualizarPassos() {
+    passos += 1;
+    contadorPassos.innerHTML = "Passos: " + passos;
+}
+
+// Gera uma lista aleatória com valores entre 1 e 100
 function gerarListaAleatoria(tamanho) {
-    
-
-    lista = Array.from({ length: tamanho }, () => Math.floor(Math.random() * 100) + 1); //gera uma lista com barras de tamanho entre 1 a 300
-    listaAtual = Array.from(lista); // cria uma cópia da lista atual para reset
-    mostrarLista(); // exibe a lista gerada
-
+    seletorAlgoritmos.disabled = false;
+    lista = Array.from({ length: tamanho }, () => Math.floor(Math.random() * 100) + 1);
+    listaAtual = Array.from(lista); // Salva cópia para reiniciar depois
+    mostrarLista();
 }
 
-//função para exibir a lista 
+// Exibe a lista como barras verticais no HTML
 function mostrarLista() {
     const barrasAtivas = document.querySelectorAll('.barra.ativo');
     barrasAtivas.forEach(barra => barra.classList.remove('ativo'));
 
-    containerLista.innerHTML = ''; // define o elemento como um texto vazio
-    //para cada valor da lista
-    lista.forEach((value) => {
-        const barra = document.createElement('div'); // cria-se uma div para ser utilizada como uma barra
-        barra.className = 'barra'; // adiciona a classe "barra" para estilização no css
-        barra.style.height = `${value * 3}px`; // Escala o valor para conter a altura do elemento
-        containerLista.appendChild(barra); // adiciona a barra ao container da lista
+    containerLista.innerHTML = ''; // Limpa o conteúdo anterior
+
+    lista.forEach((valor) => {
+        const barraContainer = document.createElement('div');
+        barraContainer.className = 'barra-container';
+
+        const barra = document.createElement('div');
+        barra.className = 'barra';
+        barra.style.height = `${valor * 3}px`; // Define altura proporcional ao valor
+
+        const valorTexto = document.createElement('span');
+        valorTexto.className = 'valor-barra';
+        valorTexto.textContent = valor;
+
+        barraContainer.appendChild(barra);
+        barraContainer.appendChild(valorTexto);
+
+        containerLista.appendChild(barraContainer);
     });
 }
 
-//função para realizar trocas em diferentes algoritmos de ordenação
-function trocar(i, j) {
-    [lista[i], lista[j]] = [lista[j], lista[i]];
-}
-
-//função que inicia a ordenação ao clicar no botão
-export function iniciarOrdenacao() {
-    estado.estaOrdenando = true;
-    var tipoOrdenacao = document.getElementById("selec-algoritmos"); //recebe o tipo de algoritmo escolhido
-    switch (tipoOrdenacao.options[tipoOrdenacao.selectedIndex].text){// verifica qual foi o algoritmo escolhido e realiza a ordenação de acordo com o tipo escolhido
-        case 'Bubble Sort':
-            bubbleSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Quick Sort':
-            quickSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Merge Sort':
-            mergeSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Selection Sort':
-            selectionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Insertion Sort':
-            insertionSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        case 'Bogo Sort':
-            bogoSort(lista, estado, duracaoPasso, trocar, atualizarPassos, mostrarLista);
-            break;
-        default:
-            break;
-    }
-    
-}
-
-//função que é executada ao clicar no botão de gerar lista
+// Gera uma nova lista aleatória (chamada ao clicar no botão de "Gerar")
 export async function gerarLista() {
-
-    estado.estaOrdenando = false;//define que a lista não está ordenada
-
-    await new Promise(resolve => setTimeout(resolve, duracaoPasso))
-
-    containerLista.innerHTML = '';//define o elemento como um texto vazio
-
-    gerarListaAleatoria(quantElementos);//gera uma lista aleatória
-    
-    passos = 0;//reinicia a contagem de passos
+    estado.estaOrdenando = false;
+    await new Promise(resolve => setTimeout(resolve, 500));
+    containerLista.innerHTML = '';
+    gerarListaAleatoria(quantElementos);
+    passos = 0;
     contadorPassos.innerHTML = "Passos: " + passos;
+
 }
 
-//função que é executada ao clicar no botão de reiniciar lista
-export function reiniciarLista(){
-    estado.estaOrdenando = false;//define que a lista não está ordenada
-    lista = Array.from(listaAtual);//cria uma cópia dos valores registrados na lista auxiliar para a lista principal
-    mostrarLista();// exibe a lista reiniciada
+// Reinicia a lista para o estado original (chamada ao clicar em "Reiniciar")
+export function reiniciarLista() {
+    estado.estaOrdenando = false;
+    seletorAlgoritmos.disabled = false;
+    setTimeout(() => {
+        lista = Array.from(listaAtual); // Restaura a cópia salva
+        mostrarLista();
+        passos = 0;
+        contadorPassos.innerHTML = "Passos: " + passos;
     
-    const barrasAtivas = document.querySelectorAll('.barra.ativo');
-    barrasAtivas.forEach(barra => barra.classList.remove('ativo'));
-
-    passos = 0;// reinicia a contagem de passos
-    contadorPassos.innerHTML = "Passos: " + passos;
+    }, 500);
 }
 
-// Código executado ao iniciar o programa, gerando uma lista inicial com valores aleatórios
+
+// Mostra a explicação do algoritmo selecionado quando muda o seletor
+document.getElementById('selec-algoritmos').addEventListener('change', function() {
+    const elementoTooltip = document.querySelector('.botao-duvida');
+    const explicacoes = {
+        bubbleSort: "Este algoritmo compara pares adjacentes e troca-os se estiverem fora de ordem, empurrando os maiores elementos para o final.",
+        quickSort: "Escolhe um pivô e divide a lista em menores e maiores que ele, ordenando recursivamente as partes.",
+        mergeSort: "Divide a lista até ficar com listas unitárias e depois vai mesclando-as mantendo a ordem.",
+        selectionSort: "Seleciona o menor elemento restante e o coloca na posição correta, repetindo até que todos os elementos estejam ordenados.",
+        insertionSort: "Insere cada elemento na posição correta dentro da parte já ordenada da lista.",
+        bogoSort: "Embaralha a lista repetidamente até que acidentalmente fique ordenada. Inviável para o desenvolvimento de softwares."
+    };
+    elementoTooltip.setAttribute('data-tooltip', explicacoes[this.value] || 'Selecione um algoritmo para ver sua explicação');
+});
+
+// Gera uma lista inicial ao carregar o programa
 gerarListaAleatoria(quantElementos);
-
-
