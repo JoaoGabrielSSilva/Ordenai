@@ -1,8 +1,8 @@
-# 🧠 Sorting Visualizer
+# 📶 Ordenaí
 
 Visualize o funcionamento dos principais algoritmos de ordenação de forma interativa e educativa!
 
-O **Sorting Visualizer** é uma aplicação desktop que permite visualizar como diferentes algoritmos de ordenação trabalham em tempo real. O usuário pode selecionar entre diversos algoritmos, ajustar a velocidade da animação e definir a quantidade de elementos a serem ordenados.
+O **Ordenaí** é uma aplicação desktop que permite visualizar como diferentes algoritmos de ordenação trabalham em tempo real. O usuário pode selecionar entre diversos algoritmos, ajustar a velocidade da animação e definir a quantidade de elementos a serem ordenados.
 
 ---
 
