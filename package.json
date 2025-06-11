@@ -1,5 +1,5 @@
 {
-  "name": "sortingvisualizer",
+  "name": "visualsort",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "electron-builder"
   },
   "build": {
-    "appId": "com.sortingvisualizer",
+    "appId": "com.visualsort",
     "files": [
       "index.js",
       "index.html",
@@ -25,15 +25,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JoaoGabrielSSilva/SortingVisualizer.git"
+    "url": "git+https://github.com/JoaoGabrielSSilva/VisualSort.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JoaoGabrielSSilva/SortingVisualizer/issues"
+    "url": "https://github.com/JoaoGabrielSSilva/VisualSort/issues"
   },
-  "homepage": "https://github.com/JoaoGabrielSSilva/SortingVisualizer#readme",
+  "homepage": "https://github.com/JoaoGabrielSSilva/VisualSort#readme",
   "description": "",
   "devDependencies": {
     "electron": "^35.1.0",

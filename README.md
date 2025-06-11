@@ -1,8 +1,8 @@
-# 📶 Ordenaí
+# 📶 VisualSort
 
 Visualize o funcionamento dos principais algoritmos de ordenação de forma interativa e educativa!
 
-O **Ordenaí** é uma aplicação desktop que permite visualizar como diferentes algoritmos de ordenação trabalham em tempo real. O usuário pode selecionar entre diversos algoritmos, ajustar a velocidade da animação e definir a quantidade de elementos a serem ordenados.
+O **VisualSort** é uma aplicação desktop que permite visualizar como diferentes algoritmos de ordenação trabalham em tempo real. O usuário pode selecionar entre diversos algoritmos, ajustar a velocidade da animação e definir a quantidade de elementos a serem ordenados.
 
 ---
 
@@ -31,7 +31,12 @@ O **Ordenaí** é uma aplicação desktop que permite visualizar como diferentes
 
 ---
 
-## 📥 Instalação
+## 📥 Execução da Aplicação
+1. Baixe a última versão lançada na página Releases.
+2. Execute o arquivo `visualsort.exe`.
+3. Aproveite a experiência de visualização dos algoritmos de ordenação!
+
+## 📥 Instalação para Desenvolvimento
 
 1. Certifique-se de ter o [Node.js](https://nodejs.org/)  instalado.
 2. Clone este repositório:
